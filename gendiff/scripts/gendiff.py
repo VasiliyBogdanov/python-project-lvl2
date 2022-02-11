@@ -2,7 +2,7 @@
 from gendiff.gendiff import cli_arg_parser
 
 
-def main() -> None:
+def main():
     cli_arg_parser()
 
 
