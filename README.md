@@ -5,3 +5,5 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/6ff1868af3e92f0dd252/test_coverage)](https://codeclimate.com/github/VasiliyBogdanov/python-project-lvl2/test_coverage)
 ### Plain JSON
 [![asciicast](https://asciinema.org/a/0lnFLtjxwiUARhaZerb0zFOdV.svg)](https://asciinema.org/a/0lnFLtjxwiUARhaZerb0zFOdV)
+### Plain YAML
+[![asciicast](https://asciinema.org/a/l3th2SqDS1cvC164cStZhKem4.svg)](https://asciinema.org/a/l3th2SqDS1cvC164cStZhKem4)

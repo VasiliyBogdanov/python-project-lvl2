@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from gendiff.gendiff import cli_arg_parser
+from gendiff.cli_parser import cli_arg_parser
 
 
 def main():

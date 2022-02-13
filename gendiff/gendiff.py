@@ -1,23 +1,6 @@
-import argparse
 import json
-
-
-def cli_arg_parser():
-    parser = argparse.ArgumentParser(description="Generate diff")
-
-    # Positional arguments
-    parser.add_argument("first_file")
-    parser.add_argument("second_file")
-
-    # Optional arguments
-    parser.add_argument("-f", "--format",
-                        help="set format of output",
-                        default="plain json")
-
-    args = parser.parse_args()
-    filepath1, filepath2 = args.first_file, args.second_file
-    format_ = args.format
-    print(generate_diff(filepath1, filepath2, format_))
+import os
+import yaml
 
 
 def _true_false_to_string(item):
@@ -29,10 +12,19 @@ def _true_false_to_string(item):
         return item
 
 
-def _plain_json_diff(filepath_a: str, filepath_b: str) -> str:
-    with open(filepath_a) as f1, open(filepath_b) as f2:
-        file1 = json.load(f1)
-        file2 = json.load(f2)
+def _prepare_file(filepath: str):
+    file_format = os.path.splitext(filepath)[-1]
+    if file_format == ".json":
+        with open(filepath) as f:
+            file = json.load(f)
+    elif file_format == ".yml" or file_format == ".yaml":
+        with open(filepath) as f:
+            file = yaml.safe_load(f)
+    return file
+
+
+def _create_diff(filepath_a: str, filepath_b: str, format_: str) -> str:
+    file1, file2 = _prepare_file(filepath_a), _prepare_file(filepath_b)
     file1 = {k: _true_false_to_string(v) for k, v in file1.items()}
     file2 = {k: _true_false_to_string(v) for k, v in file2.items()}
 
@@ -60,6 +52,5 @@ def _plain_json_diff(filepath_a: str, filepath_b: str) -> str:
     return output
 
 
-def generate_diff(filepath_a: str, filepath_b: str, format_: str = "plain json") -> str:
-    if format_ == "plain json":
-        return _plain_json_diff(filepath_a, filepath_b)
+def generate_diff(filepath_a: str, filepath_b: str, format_: str) -> str:
+    return _create_diff(filepath_a, filepath_b, format_)
