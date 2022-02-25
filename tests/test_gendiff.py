@@ -1,28 +1,43 @@
-import pytest
+from gendiff.generate_diff import generate_diff, choose_format
+from tests.fixtures.results import plain_result_meta
+from tests.fixtures.results import nested_result_meta
+from tests.fixtures.results import stylish_plain_result
+from tests.fixtures.results import stylish_nested_result
 
-from gendiff import generate_diff
+json_plain_filepath1 = "./tests/fixtures/file1_plain.json"
+json_plain_filepath2 = "./tests/fixtures/file2_plain.json"
 
-# Plain JSON
-plain_json_filepath1 = "tests/fixtures/file1.json"
-plain_json_filepath2 = "tests/fixtures/file2.json"
-plain_json_result_filepath = "tests/fixtures/plain_result.txt"
-plain_yaml_filepath1 = "tests/fixtures/file1.yml"
-plain_yaml_filepath2 = "tests/fixtures/file2.yaml"
+json_nested_filepath1 = "./tests/fixtures/file1_nested.json"
+json_nested_filepath2 = "./tests/fixtures/file2_nested.json"
 
-@pytest.fixture
-def plain_json_result():
-    with open(plain_json_result_filepath, mode="r") as f:
-        result = f.read()
-    return result
+yaml_plain_filepath1 = "./tests/fixtures/file1_plain.yml"
+yaml_plain_filepath2 = "./tests/fixtures/file2_plain.yaml"
 
-
-def test_gendiff_plain_json(plain_json_result):
-    assert generate_diff(plain_json_filepath1, plain_json_filepath2, "json") == plain_json_result
+yaml_nested_filepath1 = "./tests/fixtures/file1_nested.yaml"
+yaml_nested_filepath2 = "./tests/fixtures/file2_nested.yaml"
 
 
-def test_gendiff_plain_yaml(plain_json_result):
-    assert generate_diff(plain_yaml_filepath1, plain_yaml_filepath2, "json") == plain_json_result
+def test_gendiff_plain_json_meta():
+    assert generate_diff(json_plain_filepath1, json_plain_filepath2) == plain_result_meta
 
 
-def test_gendiff_json_to_yaml(plain_json_result):
-    assert generate_diff(plain_yaml_filepath1, plain_json_filepath2, "json") == plain_json_result
+def test_gendiff_nested_json_meta():
+    assert generate_diff(json_nested_filepath1, json_nested_filepath2) == nested_result_meta
+
+
+def test_gendiff_plain_yaml_meta():
+    assert generate_diff(yaml_plain_filepath1, yaml_plain_filepath2) == plain_result_meta
+
+
+def test_gendiff_nested_yaml_meta():
+    assert generate_diff(yaml_nested_filepath1, yaml_nested_filepath2) == nested_result_meta
+
+
+def test_plain_stylish_json():
+    assert choose_format(generate_diff(json_plain_filepath1,
+                                       json_plain_filepath2), "stylish") == stylish_plain_result
+
+
+def test_nested_stylish_json():
+    assert choose_format(generate_diff(json_nested_filepath1,
+                                       json_nested_filepath2), "stylish") == stylish_nested_result
