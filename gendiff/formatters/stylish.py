@@ -2,11 +2,16 @@ from gendiff.K import INDENT, INDENT_SIGNS, STATUS
 
 
 def render_stylish(meta_tree):
-    return "{\n" + "\n".join(build_list_of_lines(meta_tree)) + "\n}"
+    return "{\n" + "\n".join(build_stylish_meta(meta_tree)) + "\n}"
+
+
+def get_indent(depth):
+    return INDENT * (4 * depth - 2)
 
 
 def format_value(key, value, sign, depth):
     indent = get_indent(depth)
+
     if isinstance(value, dict):
         nested_str = [f"{indent}{sign} {key}: {{"]
 
@@ -29,15 +34,12 @@ def format_value(key, value, sign, depth):
         return f"{indent}{sign} {key}: {output_value}"
 
 
-def get_indent(depth):
-    return INDENT * (4 * depth - 2)
-
-
-def build_list_of_lines(meta_tree, depth=1):  # noqa C901
+def build_stylish_meta(meta_tree, depth=1):  # noqa C901
     output = []
 
     for item in meta_tree:
         key = item['key']
+
         if item['status'] == STATUS.ADDED:
             output.append(format_value(key,
                                        item['value'],
@@ -66,7 +68,7 @@ def build_list_of_lines(meta_tree, depth=1):  # noqa C901
             indent = get_indent(depth)
 
             output.append(f"{indent}{INDENT_SIGNS[STATUS.NESTED]} {key}: {{")
-            output.extend(build_list_of_lines(item['children'], depth + 1))
+            output.extend(build_stylish_meta(item['children'], depth + 1))
             output.append(f"  {indent}}}")
 
     return output

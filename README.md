@@ -7,5 +7,7 @@
 [![asciicast](https://asciinema.org/a/0lnFLtjxwiUARhaZerb0zFOdV.svg)](https://asciinema.org/a/0lnFLtjxwiUARhaZerb0zFOdV)
 ### Plain YAML
 [![asciicast](https://asciinema.org/a/l3th2SqDS1cvC164cStZhKem4.svg)](https://asciinema.org/a/l3th2SqDS1cvC164cStZhKem4)
-### Nested JSON
+### Nested JSON "Stylish" format
 [![asciicast](https://asciinema.org/a/gAcNJPgXBchj9EYqBEcVX2CQp.svg)](https://asciinema.org/a/gAcNJPgXBchj9EYqBEcVX2CQp)
+### Nested JSON "Plain" format
+[![asciicast](https://asciinema.org/a/fDs1z48oD6YperOtJrUDPI8ut.svg)](https://asciinema.org/a/fDs1z48oD6YperOtJrUDPI8ut)

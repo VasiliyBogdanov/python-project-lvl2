@@ -3,6 +3,7 @@ import os
 import yaml
 from gendiff.K import STATUS
 from gendiff.formatters.stylish import render_stylish
+from gendiff.formatters.plain import render_plain
 
 
 def _prepare_file(filepath):
@@ -58,8 +59,11 @@ def build_diff_meta_tree(data_old, data_new):
 
 
 def choose_format(meta_tree, format_):
+    format_ = format_.lower()
     if format_ == "stylish":
         return render_stylish(meta_tree)
+    elif format_ == "plain":
+        return render_plain(meta_tree)
 
 
 def generate_diff(filepath_a, filepath_b):
