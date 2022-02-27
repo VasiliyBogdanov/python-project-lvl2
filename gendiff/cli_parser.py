@@ -1,5 +1,4 @@
 import argparse
-from gendiff.generate_diff import choose_format
 from gendiff.generate_diff import generate_diff
 
 
@@ -18,4 +17,8 @@ def cli_arg_parser():
     args = parser.parse_args()
     filepath1, filepath2 = args.first_file, args.second_file
     output_format = args.format
-    print(choose_format(generate_diff(filepath1, filepath2), output_format))
+
+    if output_format == "json":
+        print(generate_diff(filepath1, filepath2, output_format, indent=4))
+    else:
+        print(generate_diff(filepath1, filepath2, output_format))
