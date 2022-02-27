@@ -1,5 +1,12 @@
 from gendiff.generate_diff import build_diff_meta_tree, generate_diff, prepare_file
-from tests.fixtures.results import *
+from tests.fixtures.results import flat_result_meta
+from tests.fixtures.results import nested_result_meta
+from tests.fixtures.results import stylish_flat_result
+from tests.fixtures.results import stylish_nested_result
+from tests.fixtures.results import plain_flat_result
+from tests.fixtures.results import plain_nested_result
+from tests.fixtures.results import json_flat_result
+from tests.fixtures.results import json_nested_result
 
 flat_json_filepath1 = "./tests/fixtures/file1_flat.json"
 flat_json_filepath2 = "./tests/fixtures/file2_flat.json"
