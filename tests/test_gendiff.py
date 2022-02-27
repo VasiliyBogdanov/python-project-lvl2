@@ -2,6 +2,7 @@ from gendiff.generate_diff import build_diff_meta_tree, generate_diff, prepare_f
 from tests.fixtures.results import flat_result_meta
 from tests.fixtures.results import nested_result_meta
 from tests.fixtures.results import stylish_flat_result
+from tests.fixtures.results import stylish_nested_result  # noqa W291
 from tests.fixtures.results import plain_flat_result
 from tests.fixtures.results import plain_nested_result
 from tests.fixtures.results import json_flat_result
@@ -18,9 +19,6 @@ flat_yaml_filepath2 = "./tests/fixtures/file2_flat.yaml"
 
 nested_yaml_filepath1 = "./tests/fixtures/file1_nested.yaml"
 nested_yaml_filepath2 = "./tests/fixtures/file2_nested.yaml"
-
-with open("./tests/fixtures/stylish_nested_result.txt") as f:
-    stylish_nested_result = f.read()
 
 
 def test_gendiff_flat_json_meta():
