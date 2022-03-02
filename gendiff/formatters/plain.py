@@ -1,4 +1,10 @@
-from gendiff.K import PLAIN_MESSAGE, STATUS
+from gendiff.formatters.statuses import STATUS
+
+PLAIN_MESSAGE = {
+    "Added": "Property '{path_added}' was added with value: {value_added}",
+    "Deleted": "Property '{path_deleted}' was removed",
+    "Changed": "Property '{path_changed}' was updated. From {old_value} to {new_value}"  # noqa E501
+}
 
 
 def render_plain(meta_tree):

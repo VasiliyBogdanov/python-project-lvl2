@@ -1,0 +1,1 @@
+[{"key": "follow", "status": "Deleted", "value": false}, {"key": "host", "status": "Unchanged", "value": "hexlet.io"}, {"key": "proxy", "status": "Deleted", "value": "123.234.53.22"}, {"key": "timeout", "status": "Changed", "old_value": 50, "new_value": 20}, {"key": "verbose", "status": "Added", "value": true}]

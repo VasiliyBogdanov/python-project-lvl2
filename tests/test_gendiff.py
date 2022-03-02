@@ -1,12 +1,15 @@
 from gendiff.generate_diff import build_diff_meta_tree, generate_diff, prepare_file
-from tests.fixtures.results import flat_result_meta
-from tests.fixtures.results import nested_result_meta
-from tests.fixtures.results import stylish_flat_result
-from tests.fixtures.results import plain_flat_result
-from tests.fixtures.results import plain_nested_result
-from tests.fixtures.results import json_flat_result
-from tests.fixtures.results import json_nested_result
+from tests.fixtures.meta_tree_results import flat_result_meta
+from tests.fixtures.meta_tree_results import nested_result_meta
 
+
+def open_result_file(filepath):
+    with open(filepath) as f:
+        result = f.read()
+    return result
+
+
+# Initial data filepaths
 flat_json_filepath1 = "./tests/fixtures/file1_flat.json"
 flat_json_filepath2 = "./tests/fixtures/file2_flat.json"
 
@@ -19,55 +22,64 @@ flat_yaml_filepath2 = "./tests/fixtures/file2_flat.yaml"
 nested_yaml_filepath1 = "./tests/fixtures/file1_nested.yaml"
 nested_yaml_filepath2 = "./tests/fixtures/file2_nested.yaml"
 
-with open("./tests/fixtures/stylish_nested_result.txt") as f:
-    stylish_nested_result = f.read()
+# Results filepaths
+stylish_flat_result_filepath = "./tests/fixtures/gendiff_results/stylish_flat_result.txt"
+stylish_nested_result_filepath = "./tests/fixtures/gendiff_results/stylish_nested_result.txt"
+
+plain_flat_result_filepath = "./tests/fixtures/gendiff_results/plain_flat_result.txt"
+plain_nested_result_filepath = "./tests/fixtures/gendiff_results/plain_nested_result.txt"
+
+json_flat_result_filepath = "./tests/fixtures/gendiff_results/json_flat_result.txt"
+json_nested_result_filepath = "./tests/fixtures/gendiff_results/json_nested_result.txt"
 
 
-def test_gendiff_flat_json_meta():
+# Test result of "build_meta_tree" function
+def test_build_meta_tree_flat_json():
     assert build_diff_meta_tree(prepare_file(flat_json_filepath1),
                                 prepare_file(flat_json_filepath2)) == flat_result_meta
 
 
-def test_gendiff_nested_json_meta():
+def test_build_meta_tree_nested_json():
     assert build_diff_meta_tree(prepare_file(nested_json_filepath1),
                                 prepare_file(nested_json_filepath2)) == nested_result_meta
 
 
-def test_gendiff_flat_yaml_meta():
+def test_build_meta_tre_flat_yaml():
     assert build_diff_meta_tree(prepare_file(flat_yaml_filepath1),
                                 prepare_file(flat_yaml_filepath2)) == flat_result_meta
 
 
-def test_gendiff_nested_yaml_meta():
+def test_build_meta_tre_nested_yaml():
     assert build_diff_meta_tree(prepare_file(nested_yaml_filepath1),
                                 prepare_file(nested_yaml_filepath2)) == nested_result_meta
 
 
+# Test result of "generate_diff" function
 def test_flat_stylish_json():
     assert generate_diff(flat_json_filepath1,
-                         flat_json_filepath2, "stylish") == stylish_flat_result
+                         flat_json_filepath2, "stylish") == open_result_file(stylish_flat_result_filepath)
 
 
 def test_nested_stylish_json():
     assert generate_diff(nested_json_filepath1,
-                         nested_json_filepath2, "stylish") == stylish_nested_result
+                         nested_json_filepath2, "stylish") == open_result_file(stylish_nested_result_filepath)
 
 
 def test_flat_plain_json():
     assert generate_diff(flat_json_filepath1,
-                         flat_json_filepath2, "plain") == plain_flat_result
+                         flat_json_filepath2, "plain") == open_result_file(plain_flat_result_filepath)
 
 
 def test_nested_plain_json():
     assert generate_diff(nested_json_filepath1,
-                         nested_json_filepath2, "plain") == plain_nested_result
+                         nested_json_filepath2, "plain") == open_result_file(plain_nested_result_filepath)
 
 
 def test_flat_json():
     assert generate_diff(flat_json_filepath1,
-                         flat_json_filepath2, "json") == json_flat_result
+                         flat_json_filepath2, "json") == open_result_file(json_flat_result_filepath)
 
 
 def test_nested_json():
     assert generate_diff(nested_json_filepath1,
-                         nested_json_filepath2, "json") == json_nested_result
+                         nested_json_filepath2, "json") == open_result_file(json_nested_result_filepath)

@@ -1,4 +1,13 @@
-from gendiff.K import INDENT, INDENT_SIGNS, STATUS
+from gendiff.formatters.statuses import STATUS
+
+INDENT = " "
+
+INDENT_SIGNS = {
+    "Added": "+",
+    "Deleted": "-",
+    "Unchanged": " ",
+    "Nested": " "
+}
 
 
 def render_stylish(meta_tree):

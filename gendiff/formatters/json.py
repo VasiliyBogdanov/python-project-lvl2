@@ -1,9 +1,9 @@
 import json
-from gendiff.K import STATUS
+from gendiff.formatters.statuses import STATUS
 
 
-def render_json(json_meta_tree, indent=0):
-    return json.dumps(build_json_meta(json_meta_tree), indent=indent)
+def render_json(json_meta_tree):
+    return json.dumps(build_json_meta(json_meta_tree))
 
 
 def build_json_meta(meta_tree):  # noqa C901

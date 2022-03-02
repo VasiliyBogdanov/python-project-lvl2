@@ -1,24 +1,14 @@
-import json
-import os
-import yaml
-from gendiff.K import STATUS
-from gendiff.formatters.json import render_json
-from gendiff.formatters.plain import render_plain
-from gendiff.formatters.stylish import render_stylish
+from gendiff.parser.arg_parser import check_file_format
+from gendiff.formatters.choose_format import choose_format
+from gendiff.parser.loader import load_file
+from gendiff.formatters.choose_format import OUTPUT_FORMAT_STYLISH
+from gendiff.formatters.statuses import STATUS
 
 
+# К пункту 3: Зачем нам читать любой файл, если в ТЗ строго прописаны форматы?
 def prepare_file(filepath):
-    file_format = os.path.splitext(filepath)[-1]
-
-    if file_format == ".json":
-        with open(filepath, mode="r") as f:
-            file = json.load(f)
-    elif file_format in (".yml", ".yaml"):
-        with open(filepath, mode="r") as f:
-            file = yaml.safe_load(f)
-    else:
-        raise Exception("Incorrect file type")
-
+    file_format = check_file_format(filepath)
+    file = load_file(filepath, file_format)
     return file
 
 
@@ -63,18 +53,8 @@ def build_diff_meta_tree(data_old, data_new):
     return meta_tree
 
 
-def choose_format(meta_tree, format_, indent):
-    format_ = format_.lower()
-    if format_ == "stylish":
-        return render_stylish(meta_tree)
-    elif format_ == "plain":
-        return render_plain(meta_tree)
-    elif format_ == "json":
-        return render_json(meta_tree, indent=indent)
-
-
-def generate_diff(filepath_a, filepath_b, format_="stylish", indent=None):
+def generate_diff(filepath_a, filepath_b, format_=OUTPUT_FORMAT_STYLISH):
     file1 = prepare_file(filepath_a)
     file2 = prepare_file(filepath_b)
     return choose_format(build_diff_meta_tree(file1,
-                                              file2), format_, indent=indent)
+                                              file2), format_)
