@@ -2,14 +2,14 @@ import json
 from gendiff.formatters.statuses import STATUS
 
 
-def render_json(json_meta_tree):
-    return json.dumps(build_json_meta(json_meta_tree))
+def render_json(json_diff):
+    return json.dumps(build_json_meta(json_diff))
 
 
-def build_json_meta(meta_tree):  # noqa C901
+def build_json_meta(diff):  # noqa C901
     output = []
 
-    for item in meta_tree:
+    for item in diff:
         value = {
             'key': item['key'],
             'status': item['status']

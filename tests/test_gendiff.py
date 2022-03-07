@@ -1,4 +1,6 @@
-from gendiff.generate_diff import build_diff_meta_tree, generate_diff, prepare_file
+from gendiff.generate_diff import build_diff, generate_diff
+from gendiff.parsers.file_parser import parse_file_format
+from gendiff.parsers.file_parser import read_file
 from tests.fixtures.meta_tree_results import flat_result_meta
 from tests.fixtures.meta_tree_results import nested_result_meta
 
@@ -7,6 +9,13 @@ def open_result_file(filepath):
     with open(filepath) as f:
         result = f.read()
     return result
+
+
+def prepare_file(filepath):
+    text_data, extension = read_file(filepath)
+    file = parse_file_format(text_data, extension)
+
+    return file
 
 
 # Initial data filepaths
@@ -33,25 +42,25 @@ json_flat_result_filepath = "./tests/fixtures/gendiff_results/json_flat_result.t
 json_nested_result_filepath = "./tests/fixtures/gendiff_results/json_nested_result.txt"
 
 
-# Test result of "build_meta_tree" function
+# Test result of "build_diff" function
 def test_build_meta_tree_flat_json():
-    assert build_diff_meta_tree(prepare_file(flat_json_filepath1),
-                                prepare_file(flat_json_filepath2)) == flat_result_meta
+    assert build_diff(prepare_file(flat_json_filepath1),
+                      prepare_file(flat_json_filepath2)) == flat_result_meta
 
 
 def test_build_meta_tree_nested_json():
-    assert build_diff_meta_tree(prepare_file(nested_json_filepath1),
-                                prepare_file(nested_json_filepath2)) == nested_result_meta
+    assert build_diff(prepare_file(nested_json_filepath1),
+                      prepare_file(nested_json_filepath2)) == nested_result_meta
 
 
 def test_build_meta_tre_flat_yaml():
-    assert build_diff_meta_tree(prepare_file(flat_yaml_filepath1),
-                                prepare_file(flat_yaml_filepath2)) == flat_result_meta
+    assert build_diff(prepare_file(flat_yaml_filepath1),
+                      prepare_file(flat_yaml_filepath2)) == flat_result_meta
 
 
 def test_build_meta_tre_nested_yaml():
-    assert build_diff_meta_tree(prepare_file(nested_yaml_filepath1),
-                                prepare_file(nested_yaml_filepath2)) == nested_result_meta
+    assert build_diff(prepare_file(nested_yaml_filepath1),
+                      prepare_file(nested_yaml_filepath2)) == nested_result_meta
 
 
 # Test result of "generate_diff" function

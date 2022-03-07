@@ -10,8 +10,8 @@ INDENT_SIGNS = {
 }
 
 
-def render_stylish(meta_tree):
-    return "{\n" + "\n".join(build_stylish_meta(meta_tree)) + "\n}"
+def render_stylish(stylish_diff):
+    return "{\n" + "\n".join(build_stylish_meta(stylish_diff)) + "\n}"
 
 
 def get_indent(depth):
@@ -43,10 +43,10 @@ def format_value(key, value, sign, depth):
         return f"{indent}{sign} {key}: {output_value}"
 
 
-def build_stylish_meta(meta_tree, depth=1):  # noqa C901
+def build_stylish_meta(diff, depth=1):  # noqa C901
     output = []
 
-    for item in meta_tree:
+    for item in diff:
         key = item['key']
 
         if item['status'] == STATUS.ADDED:

@@ -7,8 +7,8 @@ PLAIN_MESSAGE = {
 }
 
 
-def render_plain(meta_tree):
-    return "\n".join(build_plain_meta(meta_tree))
+def render_plain(plain_diff):
+    return "\n".join(build_plain_meta(plain_diff))
 
 
 def format_value(value):
@@ -27,10 +27,10 @@ def format_value(value):
     return str(value)
 
 
-def build_plain_meta(meta_tree, path=""):
+def build_plain_meta(diff, path=""):
     output = []
 
-    for item in meta_tree:
+    for item in diff:
         path_modified = f'{path}{item["key"]}'
 
         if item['status'] == STATUS.ADDED:
