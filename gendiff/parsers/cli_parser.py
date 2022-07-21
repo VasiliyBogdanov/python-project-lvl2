@@ -1,4 +1,5 @@
 import argparse
+from gendiff.formatters.render_diff import OUTPUT_FORMAT_STYLISH
 
 
 def cli_arg_parser():
@@ -11,7 +12,7 @@ def cli_arg_parser():
     # Optional arguments
     parser.add_argument("-f", "--format",
                         help="set format of output",
-                        default="stylish")
+                        default=OUTPUT_FORMAT_STYLISH)
 
     args = parser.parse_args()
     filepath1, filepath2 = args.first_file, args.second_file

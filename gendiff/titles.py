@@ -1,0 +1,6 @@
+KEY_TITLE = "key"
+STATUS_TITLE = "status"
+VALUE_TITLE = "value"
+OLD_VALUE_TITLE = "old_value"
+NEW_VALUE_TITLE = "new_value"
+CHILDREN_TITLE = "children"

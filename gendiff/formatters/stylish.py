@@ -1,5 +1,7 @@
-from gendiff.formatters.statuses import STATUS
-
+from gendiff.statuses import STATUS
+from gendiff.titles import (KEY_TITLE, STATUS_TITLE,
+                            VALUE_TITLE, CHILDREN_TITLE,
+                            OLD_VALUE_TITLE, NEW_VALUE_TITLE)
 INDENT = " "
 
 INDENT_SIGNS = {
@@ -11,7 +13,7 @@ INDENT_SIGNS = {
 
 
 def render_stylish(stylish_diff):
-    return "{\n" + "\n".join(build_stylish_meta(stylish_diff)) + "\n}"
+    return "{\n" + "\n".join(build_stylish(stylish_diff)) + "\n}"
 
 
 def get_indent(depth):
@@ -43,41 +45,41 @@ def format_value(key, value, sign, depth):
         return f"{indent}{sign} {key}: {output_value}"
 
 
-def build_stylish_meta(diff, depth=1):  # noqa C901
+def build_stylish(diff, depth=1):  # noqa C901
     output = []
 
     for item in diff:
-        key = item['key']
+        key = item[KEY_TITLE]
 
-        if item['status'] == STATUS.ADDED:
+        if item[STATUS_TITLE] == STATUS.ADDED:
             output.append(format_value(key,
-                                       item['value'],
+                                       item[VALUE_TITLE],
                                        INDENT_SIGNS[STATUS.ADDED],
                                        depth))
-        elif item['status'] == STATUS.DELETED:
+        elif item[STATUS_TITLE] == STATUS.DELETED:
             output.append(format_value(key,
-                                       item['value'],
+                                       item[VALUE_TITLE],
                                        INDENT_SIGNS[STATUS.DELETED],
                                        depth))
-        elif item['status'] == STATUS.CHANGED:
+        elif item[STATUS_TITLE] == STATUS.CHANGED:
             output.append(format_value(key,
-                                       item['old_value'],
+                                       item[OLD_VALUE_TITLE],
                                        INDENT_SIGNS[STATUS.DELETED],
                                        depth))
             output.append(format_value(key,
-                                       item['new_value'],
+                                       item[NEW_VALUE_TITLE],
                                        INDENT_SIGNS[STATUS.ADDED],
                                        depth))
-        elif item['status'] == STATUS.UNCHANGED:
+        elif item[STATUS_TITLE] == STATUS.UNCHANGED:
             output.append(format_value(key,
-                                       item['value'],
+                                       item[VALUE_TITLE],
                                        INDENT_SIGNS[STATUS.UNCHANGED],
                                        depth))
-        elif item['status'] == STATUS.NESTED:
+        elif item[STATUS_TITLE] == STATUS.NESTED:
             indent = get_indent(depth)
 
             output.append(f"{indent}{INDENT_SIGNS[STATUS.NESTED]} {key}: {{")
-            output.extend(build_stylish_meta(item['children'], depth + 1))
+            output.extend(build_stylish(item[CHILDREN_TITLE], depth + 1))
             output.append(f"  {indent}}}")
 
     return output
