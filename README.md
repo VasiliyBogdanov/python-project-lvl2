@@ -51,4 +51,4 @@ some_var = generate_diff(filepath_a, filepath_b, format_='stylish')
 ### Nested JSON "Plain" format
 [![asciicast](https://asciinema.org/a/fDs1z48oD6YperOtJrUDPI8ut.svg)](https://asciinema.org/a/fDs1z48oD6YperOtJrUDPI8ut)
 ### Nested JSON "JSON" format
-[![asciicast](https://asciinema.org/a/J7jGgE1EnITCAp4sqkvRH8SoP.svg)](https://asciinema.org/a/J7jGgE1EnITCAp4sqkvRH8SoP)
+[![asciicast](https://asciinema.org/a/sIH1aEfRI0jOpeJZAgIdIsI2R.svg)](https://asciinema.org/a/sIH1aEfRI0jOpeJZAgIdIsI2R)
